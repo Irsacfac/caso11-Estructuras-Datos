@@ -1,3 +1,4 @@
+import lector.JSONReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -18,6 +19,8 @@ public class Prueba {
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
+
+
 	}
 
 }
