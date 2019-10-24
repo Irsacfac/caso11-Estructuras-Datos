@@ -27,4 +27,5 @@ public class JSONReader {
     private static class SingletonHolder {
         private static final JSONReader INSTANCE = new JSONReader();
     }
+
 }
