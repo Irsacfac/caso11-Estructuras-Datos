@@ -1,0 +1,15 @@
+	{
+		"URLs":
+			[
+			{
+              "url" : "https://es.wikipedia.org/wiki/Wikipedia:Portada",
+              "anchura" : 2,
+              "profundidad" : 2
+			},
+			{
+				"url" : "http://json.org/",
+                "anchura" : 2,
+                "profundidad" : 2
+			}
+			]
+	}
