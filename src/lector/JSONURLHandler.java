@@ -2,6 +2,7 @@ package lector;
 
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
+import java.util.regex.*;
 
 public class JSONURLHandler {
 
@@ -17,10 +18,10 @@ public class JSONURLHandler {
         return mInstance;
     }
 
-
-
     private String getOuterHtml(String pURL){
+
         return JSoup.getInstance().parseURL(pURL);
     }
+
 
 }
