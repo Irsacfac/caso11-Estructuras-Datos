@@ -5,11 +5,12 @@ import org.jsoup.nodes.Document;
 
 public class JSoup {
 
-    public static JSoup getInstance() {
-        return SingletonHolder.INSTANCE;
+    private static JSoup mInstance;
+
+    private JSoup() {
     }
 
-    public static String parseURL(String pURL){
+    public String parseURL(String pURL){
         try {
             final Document document = Jsoup.connect(pURL).get();
             System.out.println(document.outerHtml());
@@ -21,7 +22,11 @@ public class JSoup {
         return null;
     }
 
-    private static class SingletonHolder {
-        private static final JSoup INSTANCE = new JSoup();
+
+    public static JSoup getInstance() {
+        if (mInstance == null) {
+            mInstance = new JSoup();
+        }
+        return mInstance;
     }
 }

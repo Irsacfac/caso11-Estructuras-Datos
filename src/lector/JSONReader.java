@@ -9,8 +9,16 @@ import org.json.simple.parser.ParseException;
 public class JSONReader {
 
 
+    private static JSONReader mInstance;
+
+    private JSONReader() {
+    }
+
     public static JSONReader getInstance() {
-        return SingletonHolder.INSTANCE;
+        if (mInstance == null) {
+            mInstance = new JSONReader();
+        }
+        return mInstance;
     }
 
     public JSONObject parseJson(String pFilePath){
@@ -22,10 +30,6 @@ public class JSONReader {
             ioException.printStackTrace();
         }
         return null;
-    }
-
-    private static class SingletonHolder {
-        private static final JSONReader INSTANCE = new JSONReader();
     }
 
 }

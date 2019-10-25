@@ -1,17 +1,26 @@
 package lector;
 
+import org.json.simple.JSONObject;
+import java.util.ArrayList;
+
 public class JSONURLHandler {
 
-    private JSONReader jsonReader;
-    private JSoup jSoup;
+    private static JSONURLHandler mInstance;
 
-    public JSONURLHandler() {
-
-        this.jsonReader = JSONReader.getInstance();
-        this.jSoup = JSoup.getInstance();
-
+    private JSONURLHandler() {
     }
 
-    
+    public static JSONURLHandler getInstance() {
+        if (mInstance == null) {
+            mInstance = new JSONURLHandler();
+        }
+        return mInstance;
+    }
+
+
+
+    private String getOuterHtml(String pURL){
+        return JSoup.getInstance().parseURL(pURL);
+    }
 
 }
