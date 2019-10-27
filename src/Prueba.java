@@ -13,10 +13,10 @@ public class Prueba {
 		// TODO Auto-generated method stub
 
 		Ventana window = new Ventana();
-		final String url = "https://es.wikipedia.org/wiki/Terrorismo";
+		final String url = "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-liberia-guanacaste/";
 
-		ArrayList<String> matches = JSONURLHandler.getInstance().getParagraphs(url);
-		System.out.println(matches.get(14));
+		String matches = JSONURLHandler.getInstance().getParagraphs(url);
+		System.out.println(matches);
 
 
 

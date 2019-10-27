@@ -24,12 +24,11 @@ public class JSONURLHandler implements IHtmlTags{
         return JSoup.getInstance().parseURL(pURL);
     }
 
-    public ArrayList<String> getParagraphs(String pURL){
-        ArrayList<String> allMatches = new ArrayList<String>();
+    public String getParagraphs(String pURL){
+        String allMatches = "";
         Matcher m = Pattern.compile(PARAGRAPH_REGEX).matcher(getOuterHtml(pURL));
         while (m.find()) {
-
-            allMatches.add(m.group());
+            allMatches += m.group().substring(3, m.group().length()-4) + " | ";
         }
         return allMatches;
     }
