@@ -13,7 +13,6 @@ public class JSoup {
     public String parseURL(String pURL){
         try {
             final Document document = Jsoup.connect(pURL).get();
-            System.out.println(document.outerHtml());
             return document.outerHtml();
         }
         catch(Exception ex) {

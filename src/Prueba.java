@@ -1,8 +1,11 @@
 import lector.JSONReader;
+import lector.JSONURLHandler;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import gui.Ventana;
+
+import java.util.ArrayList;
 
 public class Prueba {
 
@@ -10,16 +13,11 @@ public class Prueba {
 		// TODO Auto-generated method stub
 
 		Ventana window = new Ventana();
-		final String url = "https://en.wikipedia.org/wiki/Donald_Trump";
+		final String url = "https://es.wikipedia.org/wiki/Terrorismo";
 
-		try {
-			final Document document = Jsoup.connect(url).get();
+		ArrayList<String> matches = JSONURLHandler.getInstance().getParagraphs(url);
+		System.out.println(matches.get(14));
 
-			System.out.println(document.outerHtml());
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
 
 
 
