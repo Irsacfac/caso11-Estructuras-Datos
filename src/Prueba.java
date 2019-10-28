@@ -14,11 +14,12 @@ public class Prueba {
 
 		Ventana window = new Ventana();
 		final String url = "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-liberia-guanacaste/";
+		final String url2 = "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-san-carlos/";
 
 		String matches = JSONURLHandler.getInstance().getParagraphs(url);
-		System.out.println(matches);
-
-
+		URL objetoURL = new URL(url);
+		objetoURL.enqueueInnerURLs();
+		//System.out.println(objetoURL.content);
 
 
 

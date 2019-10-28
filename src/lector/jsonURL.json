@@ -10,6 +10,16 @@
 				"url" : "http://json.org/",
                 "anchura" : 2,
                 "profundidad" : 2
+			},
+				{
+					"url" : "http://json.org/",
+					"anchura" : 2,
+					"profundidad" : 2
+				},
+			{
+				"url" : "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-liberia-guanacaste/",
+				"anchura" : 5,
+				"profundidad" : 3
 			}
 			]
 	}
