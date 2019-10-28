@@ -1,6 +1,7 @@
 package otros;
 
 public interface IConstants {
+	public static int M = 10;
 	public static int PANTALLA_ANCHURA = 500;
 	public static int PANTALLA_ALTURA = 250;
 	public static int DEFAULT_BUTTON_ANCHURA = 125;
