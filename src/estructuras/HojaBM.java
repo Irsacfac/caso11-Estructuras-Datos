@@ -101,7 +101,10 @@ public class HojaBM<T> {
 	
 	public LinkBM<T> encontrar(Comparable pLlave) {
 		for(int pos = 0;pos < this.data.size();pos++) {
-			if(this.data.elementAt(pos).getLlave().compareTo(pLlave) <= 0) {
+			if(this.data.elementAt(pos).getLlave().compareTo(pLlave) >= 0) {
+				if(this.data.contains(pLlave)) {
+					System.out.println("true");
+				}
 				return this.data.elementAt(pos);
 			}
 		}
