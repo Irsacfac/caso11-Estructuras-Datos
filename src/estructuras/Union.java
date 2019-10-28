@@ -2,15 +2,15 @@ package estructuras;
 
 import java.util.Vector;
 
-public class Union {
+public class Union<T> {
 	private int size;
 	private final int M;
-	private Union padre;
-	private Vector<LinkBM> elementos;
+	private Union<T> padre;
+	private Vector<LinkBM<T>> elementos;
 	private Vector<Object> hijos;
 	private int numDeElemntos;
 	
-	public Union(Vector<LinkBM> pKeys, int m, Union pPadre, Vector<Object> pHijos) {
+	public Union(Vector<LinkBM<T>> pKeys, int m, Union<T> pPadre, Vector<Object> pHijos) {
 		padre = pPadre;
 		elementos = pKeys;
 		hijos = pHijos;
@@ -20,9 +20,9 @@ public class Union {
 		for(int pos =0;pos < pHijos.size();pos++) {
 			Object temp = pHijos.elementAt(pos);
 			if(temp instanceof HojaBM) {
-				this.numDeElemntos += ((HojaBM)(temp)).getSize();
+				this.numDeElemntos += ((HojaBM<T>)(temp)).getSize();
 			}else {
-				this.numDeElemntos += ((Union)(temp)).numDeElementos();
+				this.numDeElemntos += ((Union<T>)(temp)).numDeElementos();
 			}
 		}
 	}
@@ -31,7 +31,7 @@ public class Union {
 		return this.size > this.M - 1;
 	}
 	
-	protected Union split(Union pPadre) {
+	protected Union<T> split(Union<T> pPadre) {
 		int punteroMitad;
 		if(this.hijos.size()%2 == 0) {
 			punteroMitad = this.hijos.size() - this.hijos.size()/2;
@@ -39,7 +39,7 @@ public class Union {
 			punteroMitad = this.hijos.size() - this.hijos.size()/2 - 1;
 		}
 		int mitadElementos = this.elementos.size() - this.elementos.size()/2;
-		Vector<LinkBM> nuevoElementos = new Vector<LinkBM>();
+		Vector<LinkBM<T>> nuevoElementos = new Vector<LinkBM<T>>();
 		Vector<Object> nuevoHijos = new Vector<Object>();
 		while(mitadElementos < this.elementos.size()) {
 			nuevoElementos.add(this.elementos.remove(mitadElementos));
@@ -50,19 +50,19 @@ public class Union {
 		this.numDeElemntos = 0;
 		for(int pos = 0;pos < this.hijos.size();pos++) {
 			if(this.hijos.elementAt(pos) instanceof HojaBM) {
-				this.numDeElemntos += ((HojaBM)this.hijos.elementAt(pos)).getSize();
+				this.numDeElemntos += ((HojaBM<T>)this.hijos.elementAt(pos)).getSize();
 			}else {
-				this.numDeElemntos += ((Union)this.hijos.elementAt(pos)).numDeElemntos;
+				this.numDeElemntos += ((Union<T>)this.hijos.elementAt(pos)).numDeElemntos;
 			}
 		}
-		Union nuevaUnion = new Union(nuevoElementos, this.M, pPadre, nuevoHijos);
+		Union<T> nuevaUnion = new Union<T>(nuevoElementos, this.M, pPadre, nuevoHijos);
 		for(int pos = 0;pos < nuevoHijos.size();pos++) {
 			Object temp = nuevoHijos.elementAt(pos);
 			if(temp instanceof HojaBM) {
-				HojaBM tempHoja = (HojaBM)temp;
+				HojaBM<T> tempHoja = (HojaBM<T>)temp;
 				tempHoja.setPadre(nuevaUnion);
 			}else {
-				Union tempUnion = (Union)temp;
+				Union<T> tempUnion = (Union<T>)temp;
 				tempUnion.setPadre(nuevaUnion);
 			}
 		}
@@ -90,8 +90,8 @@ public class Union {
 
 	protected void splitHoja(int pLocation) {
 		// TODO Auto-generated method stub
-		HojaBM toSplit = (HojaBM)(this.hijos.elementAt(pLocation));
-		HojaBM nuevaHoja = toSplit.split(this);
+		HojaBM<T> toSplit = (HojaBM<T>)(this.hijos.elementAt(pLocation));
+		HojaBM<T> nuevaHoja = toSplit.split(this);
 		if(pLocation < this.elementos.size()) {
 			this.elementos.add(pLocation, toSplit.getLast());
 			this.hijos.add(pLocation+1, nuevaHoja);
@@ -103,8 +103,8 @@ public class Union {
 	}
 	
 	protected void splitUnion(int pLocation) {
-		Union toSplit = (Union)this.hijos.elementAt(pLocation);
-		Union nuevaUnion = toSplit.split(this);
+		Union<T> toSplit = (Union<T>)this.hijos.elementAt(pLocation);
+		Union<T> nuevaUnion = toSplit.split(this);
 		if(pLocation < this.elementos.size()) {
 			this.elementos.add(pLocation, toSplit.getLast());
 			this.hijos.add(pLocation+1, nuevaUnion);
@@ -121,7 +121,7 @@ public class Union {
 		return this.size;
 	}
 	
-	public Vector<LinkBM> getElementos(){
+	public Vector<LinkBM<T>> getElementos(){
 		return this.elementos;
 	}
 	
@@ -129,15 +129,15 @@ public class Union {
 		return this.hijos;
 	}
 	
-	public LinkBM getLast() {
+	public LinkBM<T> getLast() {
 		return this.elementos.lastElement();
 	}
 	
-	public Union getPadre() {
+	public Union<T> getPadre() {
 		return this.padre;
 	}
 	
-	protected void setPadre(Union pPadre) {
+	protected void setPadre(Union<T> pPadre) {
 		padre = pPadre;
 	}
 	
@@ -152,13 +152,14 @@ public class Union {
 		this.size = this.elementos.size();
 	}
 	
-	protected Object find(int pPos, boolean isInsercion) {
+	protected Object find(Comparable pPos, boolean isInsercion) {
 		if(isInsercion) {
 			this.numDeElemntos++;
 		}
 		for(int pos = 0;pos < this.elementos.size();pos++) {
-			if(this.elementos.elementAt(pos).getElemento() >= pPos)
+			if(this.elementos.elementAt(pos).getLlave().compareTo(pPos) >= 0) {
 				return this.hijos.elementAt(pos);
+			}
 		}
 		return this.hijos.lastElement();
 	}

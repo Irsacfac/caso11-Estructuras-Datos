@@ -2,7 +2,7 @@ package estructuras;
 
 import java.util.Vector;
 
-public class ArbolBmas{
+public class ArbolBmas<T>{
 	
 	
 	private Object raiz;
@@ -14,33 +14,36 @@ public class ArbolBmas{
 		M = pOrder;
 		//this.minGap = Integer.MAX_VALUE;
 	}
+	public void insert(T pElemento) {
+		this.insert(pElemento, (Comparable)pElemento);
+	}
 	
-	public void insert(int X) {
+	public void insert(T pElemento, Comparable pLlave) {
 		if(raiz == null) {
-			LinkBM nuevoLink = new LinkBM(X);
+			LinkBM<T> nuevoLink = new LinkBM<T>(pElemento,pLlave);
 			raiz = new HojaBM(nuevoLink, M, null, null, null);
 		}
 		else {
 			if(raiz instanceof HojaBM) {
-				((HojaBM)raiz).insert(new LinkBM(X));
-				if(((HojaBM)this.raiz).overflow()) {
+				((HojaBM<T>)raiz).insert(new LinkBM(pElemento,pLlave));
+				if(((HojaBM<T>)this.raiz).overflow()) {
 					splitRaiz();
 				}
 			}else {
-				Object lugarInsercion = ((Union)this.raiz).find(X, true);
+				Object lugarInsercion = ((Union)this.raiz).find(pLlave, true);
 				if(lugarInsercion instanceof HojaBM) {
-					HojaBM insertPlace = (HojaBM)lugarInsercion;
-					insertPlace.insert(new LinkBM(X));
+					HojaBM<T> insertPlace = (HojaBM<T>)lugarInsercion;
+					insertPlace.insert(new LinkBM(pElemento,pLlave));
 					if(insertPlace.overflow()) {
-						((Union)raiz).splitHijo(lugarInsercion);
+						((Union<T>)raiz).splitHijo(lugarInsercion);
 					}
-					if(((Union)raiz).overflow()) {
+					if(((Union<T>)raiz).overflow()) {
 						splitRaiz();
 					}
 				}
 				else {
-					HojaBM temp = buscadorAuxiliar(X, lugarInsercion, true);
-					temp.insert(new LinkBM(X));
+					HojaBM temp = buscadorAuxiliar(pLlave, lugarInsercion, true);
+					temp.insert(new LinkBM(pElemento,pLlave));
 					if(temp.overflow()) {
 						(temp.getPadre()).splitHijo(temp);
 					}
@@ -100,22 +103,22 @@ public class ArbolBmas{
 		}
 	}
 	
-	public LinkBM buscar(int i) {
-		HojaBM nodo = buscadorAuxiliar(i, raiz, false);
-		LinkBM temp = ((HojaBM)nodo).encontrar(i);
+	public LinkBM buscar(Comparable pLlave) {
+		HojaBM nodo = buscadorAuxiliar(pLlave, raiz, false);
+		LinkBM temp = ((HojaBM)nodo).encontrar(pLlave);
 		if(temp == null) {
 			return null;
 		}
-		if(temp.getElemento() == i) {
+		if(temp.getLlave().compareTo(pLlave) == 0) {
 			return temp;
 		}
 		return null;
 	}
 	
-	private HojaBM buscadorAuxiliar(int x, Object pNodo, boolean isInsercion) {
+	private HojaBM buscadorAuxiliar(Comparable pLlave, Object pNodo, boolean isInsercion) {
 		// TODO Auto-generated method stub
 		while(!(pNodo instanceof HojaBM)) {
-			pNodo = ((Union)pNodo).find(x, isInsercion);
+			pNodo = ((Union)pNodo).find(pLlave, isInsercion);
 		}
 		return (HojaBM)pNodo;
 	}

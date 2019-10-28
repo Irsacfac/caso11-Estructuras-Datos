@@ -2,17 +2,17 @@ package estructuras;
 
 import java.util.Vector;
 
-public class HojaBM {
+public class HojaBM<T> {
 	private int size;
 	private final int M;
-	private HojaBM next;
+	private HojaBM<T> next;
 	private Union padre;
-	private Vector<LinkBM> data;
+	private Vector<LinkBM<T>> data;
 	
-	public HojaBM(LinkBM pKey, int m, Union pPadre, HojaBM pNext, HojaBM pPrev) {
+	public HojaBM(LinkBM<T> pKey, int m, Union pPadre, HojaBM<T> pNext, HojaBM<T> pPrev) {
 		M = m;
 		size = 1;
-		data = new Vector<LinkBM>();
+		data = new Vector<LinkBM<T>>();
 		next = pNext;
 		padre = pPadre;
 		if((pPrev != null) && (pNext != null)) {
@@ -36,20 +36,20 @@ public class HojaBM {
 		}
 	}
 	
-	protected LinkBM getLast() {
+	protected LinkBM<T> getLast() {
 		return this.data.lastElement();
 	}
 	
-	protected LinkBM getFirst() {
+	protected LinkBM<T> getFirst() {
 		return this.data.firstElement();
 	}
 	
-	protected int insert(LinkBM pKey) {
+	protected void insert(LinkBM<T> pKey) {
 		int ans = Integer.MAX_VALUE;
 		boolean parar = false;
 		int pos;
 		for(pos = 0;((pos < this.data.size()) && !parar); pos++) {
-			if((this.data.elementAt(pos)).getElemento() > pKey.getElemento()){
+			if((this.data.elementAt(pos)).getLlave().compareTo(pKey.getLlave()) > 0){
 				parar = true;
 			}
 		}
@@ -62,9 +62,6 @@ public class HojaBM {
 			this.data.elementAt(pos-1).setNext(pKey);
 			this.data.elementAt(pos).setPrev(pKey);
 			this.data.add(pos, pKey);
-			int gap1 = this.data.elementAt(pos+1).getElemento() - this.data.elementAt(pos).getElemento();
-			int gap2 = this.data.elementAt(pos).getElemento() - this.data.elementAt(pos-1).getElemento();
-			ans = Math.min(gap1, gap2);
 		}else if((pos == 0) && (pos != this.data.size())) {
 			pKey.setNext(this.data.elementAt(pos));
 			pKey.setPrev(this.data.elementAt(pos).getPrev());
@@ -73,15 +70,6 @@ public class HojaBM {
 			}
 			this.data.elementAt(pos).setPrev(pKey);
 			this.data.add(pos, pKey);
-			int gap1 = this.data.elementAt(pos+1).getElemento() - this.data.elementAt(pos).getElemento();
-			int gap2;
-			if(this.data.elementAt(pos).getPrev() != null) {
-				gap2 = this.data.elementAt(pos).getElemento() - (this.data.elementAt(pos).getPrev()).getElemento();
-			}
-			else {
-				gap2 = Integer.MAX_VALUE;
-			}
-			ans = Math.min(gap1, gap2);
 		}else if((pos != 0) && (pos == this.data.size())) {
 			pKey.setNext(this.data.elementAt(pos-1).getNext());
 			pKey.setPrev(this.data.elementAt(pos-1));
@@ -90,26 +78,17 @@ public class HojaBM {
 				pKey.getNext().setPrev(pKey);
 			}
 			this.data.add(pKey);
-			int gap1;
-			if(this.data.elementAt(pos).getNext() != null) {
-				gap1 = this.data.elementAt(pos).getNext().getElemento() - this.data.elementAt(pos).getElemento();
-			}else {
-				gap1 = Integer.MAX_VALUE;
-			}
-			int gap2 = this.data.elementAt(pos).getElemento() - this.data.elementAt(pos-1).getElemento();
-			ans = Math.min(gap1, gap2);
 		}
 		this.size = this.data.size();
-		return ans;
 	}
 	
 	protected boolean overflow() {
 		return (this.size > this.M-1);
 	}
 	
-	protected HojaBM split(Union pPadre) {
+	protected HojaBM<T> split(Union pPadre) {
 		int mitad = this.size -this.size/2;
-		HojaBM nuevaHoja = new HojaBM(this.data.remove(mitad), this.M, pPadre, this.next, this);
+		HojaBM<T> nuevaHoja = new HojaBM<T>(this.data.remove(mitad), this.M, pPadre, this.next, this);
 		this.size = this.data.size();
 		nuevaHoja.getFirst().setPrev(this.data.elementAt(mitad-1));
 		while(mitad < this.size) {
@@ -120,24 +99,24 @@ public class HojaBM {
 		return nuevaHoja;
 	}
 	
-	public LinkBM encontrar(int pElemento) {
+	public LinkBM<T> encontrar(Comparable pLlave) {
 		for(int pos = 0;pos < this.data.size();pos++) {
-			if(pElemento <= this.data.elementAt(pos).getElemento()) {
+			if(this.data.elementAt(pos).getLlave().compareTo(pLlave) <= 0) {
 				return this.data.elementAt(pos);
 			}
 		}
 		return null;
 	}
 	
-	public Vector<LinkBM> getData(){
+	public Vector<LinkBM<T>> getData(){
 		return this.data;
 	}
 	
-	public HojaBM getNext() {
+	public HojaBM<T> getNext() {
 		return this.next;
 	}
 	
-	protected void setNext(HojaBM pNext) {
+	protected void setNext(HojaBM<T> pNext) {
 		this.next = pNext;
 	}
 	

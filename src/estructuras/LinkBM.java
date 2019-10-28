@@ -1,33 +1,43 @@
 package estructuras;
 
-public class LinkBM{
-	private int elemento;
-	private LinkBM prev;
-	private LinkBM next;
+public class LinkBM<T>{
+	private T elemento;
+	private Comparable llave;
+	private LinkBM<T> prev;
+	private LinkBM<T> next;
 	
-	public LinkBM(int pElemento){
+	public LinkBM(T pElemento) {
+		this(pElemento, (Comparable) pElemento);
+	}
+	
+	public LinkBM(T pElemento, Comparable pLlave){
 		elemento = pElemento;
+		llave = pLlave;
 		prev = null;
 		next = null;
 	}
 	
-	public int getElemento() {
+	public T getElemento() {
 		return elemento;
 	}
+	
+	public Comparable getLlave() {
+		return llave;
+	}
 
-	public LinkBM getPrev() {
+	public LinkBM<T> getPrev() {
 		return prev;
 	}
 	
-	public void setPrev(LinkBM pPrev) {
+	public void setPrev(LinkBM<T> pPrev) {
 		prev = pPrev;
 	}
 
-	public LinkBM getNext() {
+	public LinkBM<T> getNext() {
 		return next;
 	}
 	
-	public void setNext(LinkBM pNext) {
+	public void setNext(LinkBM<T> pNext) {
 		next = pNext;
 	}
 	
