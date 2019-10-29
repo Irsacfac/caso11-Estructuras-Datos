@@ -51,12 +51,21 @@ public class Manager {
 	}
 	
 	public ArrayList<String> buscarRango(int pMin, int pMax){
+		int contMin = pMin;
 		LinkBM<ArrayList<String>> resultado = arbolRango.buscar(pMin);
-		while((resultado == null) && pMin <= pMax) {
-			pMin++;
-			resultado = arbolRango.buscar(pMin);
+		while((resultado == null)) {
+			contMin++;
+			resultado = arbolRango.buscar(contMin);
+			if(contMin > pMax) {
+				return null;
+			}
 		}
-		return null;
+		ArrayList<String> arrayURL = new ArrayList<String>();
+		while((resultado != null)&&(resultado.getLlave().compareTo(pMax) < 0)) {
+			arrayURL.addAll(resultado.getElemento());
+			resultado = resultado.getNext();
+		}
+		return arrayURL;
 	}
 	
 	public ArrayList<String> buscarPalabra(String pPalabra){
