@@ -62,10 +62,35 @@ public class Manager {
 		Word top3 = null;
 		Word top4 = null;
 		Word top5 = pContenido.remove(0);
-		for(int pos = 0;pos < pContenido.size();pos++) {
-			
+		while(pContenido.size() != 0) {
+			if(top5.getRepetitions() < pContenido.get(0).getRepetitions()) {
+				top1 = top2;
+				top2 = top3;
+				top3 = top4;
+				top4 = top5;
+				top5 = pContenido.remove(0);
+			}else if(top4.getRepetitions() < pContenido.get(0).getRepetitions() || top4 == null) {
+				top1 = top2;
+				top2 = top3;
+				top3 = top4;
+				top4 = pContenido.remove(0);
+			}else if(top3.getRepetitions() < pContenido.get(0).getRepetitions() || top3 == null) {
+				top1 = top2;
+				top2 = top3;
+				top3 = pContenido.remove(0);
+			}else if(top2.getRepetitions() < pContenido.get(0).getRepetitions() || top2 == null) {
+				top1 = top2;
+				top2 = pContenido.remove(0);
+			}else if(top1.getRepetitions() < pContenido.get(0).getRepetitions() || top1 == null) {
+				top1 = pContenido.remove(0);
+			}
 		}
 		ArrayList<String> top = new ArrayList<>();
+		top.add(top5.getWord());
+		top.add(top4.getWord());
+		top.add(top3.getWord());
+		top.add(top2.getWord());
+		top.add(top1.getWord());
 		arbolTop.insert(top, pURL);
 	}
 }
