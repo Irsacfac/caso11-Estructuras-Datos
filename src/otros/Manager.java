@@ -25,6 +25,19 @@ public class Manager {
 		this.llenarArboles();
 	}
 	
+	public ArrayList<String> buscarURL(String pURL) {
+		return arbolTop.buscar(pURL).getElemento();
+	}
+	
+	public ArrayList<String> buscarRango(int min, int max){
+		LinkBM<ArrayList<String>> resultado;
+		return null;
+	}
+	
+	public ArrayList<String> buscarPalabra(String pPalabra){
+		return arbolPalabra.buscar(pPalabra).getElemento();
+	}
+	
 	private void llenarArboles() {
 		ArrayList<Word> actualList;
 		String actualURL;
