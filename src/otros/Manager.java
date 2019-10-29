@@ -42,7 +42,14 @@ public class Manager {
 	}
 	
 	private void llenarRango(int pRango, String pURL) {
-		
+		LinkBM<ArrayList<String>> arrayURLs = arbolPalabra.buscar(pRango);
+		if(arrayURLs == null) {
+			ArrayList<String> array = new ArrayList<String>(); 
+			array.add(pURL);
+			arbolPalabra.insert(array, pRango);;
+		}else {
+			arrayURLs.getElemento().add(pURL);
+		}
 	}
 	
 	private void llenarPalabra(String pPalabra, String pURL) {
