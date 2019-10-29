@@ -24,6 +24,27 @@ public class Manager {
 		URLs = urlHandler.getAllURLs();
 		this.llenarArboles();
 	}
+
+	private ArrayList<String> interseccion(ArrayList<ArrayList<String>> pArrayLists){
+		ArrayList<String> interseccion = interseccionEntreDos(pArrayLists.get(0), pArrayLists.get(1));
+		if (pArrayLists.size() > 2){
+			for (int index = 2; index < pArrayLists.size(); index++){
+				interseccion = interseccionEntreDos(interseccion, pArrayLists.get(index));
+			}
+		}
+		return interseccion;
+	}
+
+	private ArrayList<String> interseccionEntreDos(ArrayList<String> pLista1, ArrayList<String> pLista2){
+		ArrayList<String> interseccion = new ArrayList<>();
+		for (String t: pLista1) {
+			if(pLista2.contains(t)) {
+				interseccion.add(t);
+			}
+		}
+		return interseccion;
+	}
+
 	
 	public ArrayList<String> buscarURL(String pURL) {
 		return arbolTop.buscar(pURL).getElemento();
