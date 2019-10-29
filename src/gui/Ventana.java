@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,11 +56,34 @@ public class  Ventana extends JFrame implements IConstants{
 		
 		botonPalabra = new JButton("Buscar Palabra");
 		buttonsPanel.add(botonPalabra);
+		botonPalabra.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonPalabraActionPerformed();
+			}
+		});
 		
 		botonRango = new JButton("Buscar Rango");
 		buttonsPanel.add(botonRango);
+		botonRango.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonRangoActionPerformed();
+			}
+		});
 		
 		botonURL = new JButton("Buscar URL");
 		buttonsPanel.add(botonURL);
+		botonURL.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonURLActionPerformed();
+			}
+		});
+
+	}
+
+	private String getTxtBarText(){
+		return textbar.getText();
 	}
 }

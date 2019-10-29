@@ -44,7 +44,18 @@ public class JSONURLHandler implements IHtmlTags, IConstants {
         }
         return wordsWithoutRepetitions;
     }
-    
+
+    public ArrayList<String> getAllURLs(){
+        ArrayList<String> urls = new ArrayList<>();
+        JSONObject URLs = JSONReader.getInstance().parseJson(JSONFile);
+        JSONArray URLArray = (JSONArray)URLs.get("URLs");
+        for (int index = 0; index < URLArray.size(); index++) {
+            JSONObject url = (JSONObject) URLArray.get(index);
+            urls.add((String)url.get("url"));
+        }
+        return urls;
+    }
+
 
     /*
     Private Methods
