@@ -14,6 +14,7 @@ public class ArbolBmas<T>{
 		M = pOrder;
 		//this.minGap = Integer.MAX_VALUE;
 	}
+	
 	public void insert(T pElemento) {
 		this.insert(pElemento, (Comparable)pElemento);
 	}
@@ -21,16 +22,16 @@ public class ArbolBmas<T>{
 	public void insert(T pElemento, Comparable pLlave) {
 		if(raiz == null) {
 			LinkBM<T> nuevoLink = new LinkBM<T>(pElemento,pLlave);
-			raiz = new HojaBM(nuevoLink, M, null, null, null);
+			raiz = new HojaBM<T>(nuevoLink, M, null, null, null);
 		}
 		else {
 			if(raiz instanceof HojaBM) {
-				((HojaBM<T>)raiz).insert(new LinkBM(pElemento,pLlave));
+				((HojaBM<T>)raiz).insert(new LinkBM<T>(pElemento,pLlave));
 				if(((HojaBM<T>)this.raiz).overflow()) {
 					splitRaiz();
 				}
 			}else {
-				Object lugarInsercion = ((Union)this.raiz).find(pLlave, true);
+				Object lugarInsercion = ((Union<T>)this.raiz).find(pLlave, true);
 				if(lugarInsercion instanceof HojaBM) {
 					HojaBM<T> insertPlace = (HojaBM<T>)lugarInsercion;
 					insertPlace.insert(new LinkBM(pElemento,pLlave));
@@ -103,9 +104,12 @@ public class ArbolBmas<T>{
 		}
 	}
 	
-	public LinkBM buscar(Comparable pLlave) {
-		HojaBM nodo = buscadorAuxiliar(pLlave, raiz, false);
-		LinkBM temp = ((HojaBM)nodo).encontrar(pLlave);
+	public LinkBM<T> buscar(Comparable pLlave) {
+		if(raiz == null) {
+			return null;
+		}
+		HojaBM<T> nodo = buscadorAuxiliar(pLlave, raiz, false);
+		LinkBM<T> temp = ((HojaBM)nodo).encontrar(pLlave);
 		if(temp == null) {
 			return null;
 		}
