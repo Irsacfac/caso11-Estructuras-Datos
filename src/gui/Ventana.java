@@ -95,7 +95,7 @@ public class  Ventana extends JFrame implements IConstants{
 		String content = getTxtBarText();
 		String[] numberStrings = content.split(",");
 		int[] rangeNumbers = stringToInt(numberStrings);
-		
+
 
 
 
