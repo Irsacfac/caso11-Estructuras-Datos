@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -85,18 +86,35 @@ public class  Ventana extends JFrame implements IConstants{
 	}
 
 	private void botonURLActionPerformed() {
+		String content = getTxtBarText();
+
 
 	}
 
 	private void botonRangoActionPerformed() {
+		String content = getTxtBarText();
+		String[] numberStrings = content.split(",");
+		int[] rangeNumbers = stringToInt(numberStrings);
+		
+
+
 
 	}
 
 	private void botonPalabraActionPerformed() {
+		String content = getTxtBarText();
+		String[] words = content.split(",");
 
 	}
 
 	private String getTxtBarText(){
 		return textbar.getText();
+	}
+
+	private int[] stringToInt(String[] pNumbers){
+		int[] numbers = new int[2];
+		numbers[0] = Integer.parseInt(pNumbers[0]);
+		numbers[1] = Integer.parseInt(pNumbers[1]);
+		return numbers;
 	}
 }
