@@ -62,7 +62,15 @@ public class Manager {
 	public ArrayList<String> buscarPalabra(String pPalabra){
 		return arbolPalabra.buscar(pPalabra).getElemento();
 	}
-	
+
+	public ArrayList<String> buscarPalabras(String[] pPalabras){
+		ArrayList<String> matches = new ArrayList<>();
+		for (String palabra : pPalabras){
+			matches.addAll(arbolPalabra.buscar(palabra).getElemento());
+		}
+		return matches;
+	}
+
 	private void llenarArboles() {
 		ArrayList<Word> actualList;
 		String actualURL;

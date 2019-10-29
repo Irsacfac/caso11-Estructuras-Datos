@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import otros.IConstants;
 import otros.Manager;
+import otros.Word;
 
 public class  Ventana extends JFrame implements IConstants{
 	private Manager miManager;
@@ -89,23 +90,37 @@ public class  Ventana extends JFrame implements IConstants{
 
 	private void botonURLActionPerformed() {
 		String content = getTxtBarText();
-
-
+		ArrayList<String> matches = miManager.buscarURL(content);
+		for (int index = 1; index-1 < matches.size(); index++){
+			System.out.println(index + ")" + matches.get(index-1));
+		}
 	}
 
 	private void botonRangoActionPerformed() {
 		String content = getTxtBarText();
 		String[] numberStrings = content.split(",");
 		int[] rangeNumbers = stringToInt(numberStrings);
-
-
-
+		ArrayList<String> matches = miManager.buscarRango(rangeNumbers[0], rangeNumbers[1]);
+		System.out.println("Matches: ");
+		for (String url : matches){
+			System.out.println(url);
+		}
 
 	}
 
 	private void botonPalabraActionPerformed() {
 		String content = getTxtBarText();
 		String[] words = content.split(",");
+		ArrayList<String> matches;
+		if (words.length == 1){
+			 matches = miManager.buscarPalabra(content);
+		} else {
+			 matches = miManager.buscarPalabras(words);
+		}
+		System.out.println("Matches: ");
+		for (String url : matches){
+			System.out.println(url);
+		}
 
 	}
 
