@@ -16,7 +16,7 @@ public class Manager {
 	private ArrayList<String> URLs;
 	
 	public Manager() {
-		window = new Ventana("Buscador");
+		window = new Ventana("Buscador", this);
 		arbolRango = new ArbolBmas<>(7);
 		arbolPalabra = new ArbolBmas<>(10);
 		arbolTop = new ArbolBmas<>(7);
