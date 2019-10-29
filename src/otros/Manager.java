@@ -29,8 +29,12 @@ public class Manager {
 		return arbolTop.buscar(pURL).getElemento();
 	}
 	
-	public ArrayList<String> buscarRango(int min, int max){
-		LinkBM<ArrayList<String>> resultado;
+	public ArrayList<String> buscarRango(int pMin, int pMax){
+		LinkBM<ArrayList<String>> resultado = arbolRango.buscar(pMin);
+		while((resultado == null) && pMin <= pMax) {
+			pMin++;
+			resultado = arbolRango.buscar(pMin);
+		}
 		return null;
 	}
 	
