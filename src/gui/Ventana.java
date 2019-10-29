@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import otros.IConstants;
+import otros.Manager;
 
 public class  Ventana extends JFrame implements IConstants{
+	private Manager miManager;
 	private JPanel buttonsPanel;
 	private JPanel textPanel;
 	private JTextField textbar;
@@ -21,11 +23,11 @@ public class  Ventana extends JFrame implements IConstants{
 	private JButton botonRango;
 	private JButton botonURL;
 	
-	public Ventana() {
-		this("No title");
+	public Ventana(Manager pManager) {
+		this("No title", pManager);
 	}
 
-	public Ventana(String pTitle) {
+	public Ventana(String pTitle, Manager pManager) {
 		super(pTitle);
 		this.setLayout(null);
 		this.setSize(PANTALLA_ANCHURA, PANTALLA_ALTURA);
