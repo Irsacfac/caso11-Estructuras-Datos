@@ -36,6 +36,7 @@ public class  Ventana extends JFrame implements IConstants{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setExtendedState(Frame.NORMAL);
+        miManager = pManager;
         
         initComponents();
         

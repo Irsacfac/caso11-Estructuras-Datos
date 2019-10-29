@@ -47,6 +47,10 @@ public class Manager {
 
 	
 	public ArrayList<String> buscarURL(String pURL) {
+		if (arbolTop.buscar(pURL).equals(null)){
+			ArrayList<String> fail = new ArrayList<>();
+			return fail;
+		}
 		return arbolTop.buscar(pURL).getElemento();
 	}
 	
@@ -133,19 +137,19 @@ public class Manager {
 				top3 = top4;
 				top4 = top5;
 				top5 = pContenido.remove(0);
-			}else if(top4.getRepetitions() < repeticiones || top4 == null) {
+			}else if( top4 == null|| top4.getRepetitions() < repeticiones) {
 				top1 = top2;
 				top2 = top3;
 				top3 = top4;
 				top4 = pContenido.remove(0);
-			}else if(top3.getRepetitions() < repeticiones || top3 == null) {
+			}else if( top3 == null|| top3.getRepetitions() < repeticiones) {
 				top1 = top2;
 				top2 = top3;
 				top3 = pContenido.remove(0);
-			}else if(top2.getRepetitions() < repeticiones || top2 == null) {
+			}else if(top2 == null || top2.getRepetitions() < repeticiones) {
 				top1 = top2;
 				top2 = pContenido.remove(0);
-			}else if(top1.getRepetitions() < repeticiones || top1 == null) {
+			}else if(top1 == null || top1.getRepetitions() < repeticiones) {
 				top1 = pContenido.remove(0);
 			}
 		}
