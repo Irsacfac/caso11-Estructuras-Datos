@@ -60,12 +60,12 @@ public class Manager {
 				return null;
 			}
 		}
-		ArrayList<ArrayList<String>> arrayURL = new ArrayList<ArrayList<String>>();
+		ArrayList<String> arrayURL = new ArrayList<String>();
 		while((resultado != null)&&(resultado.getLlave().compareTo(pMax) < 0)) {
-			arrayURL.add(resultado.getElemento());
+			arrayURL.addAll(resultado.getElemento());
 			resultado = resultado.getNext();
 		}
-		return interseccion(arrayURL);
+		return arrayURL;
 	}
 	
 	public ArrayList<String> buscarPalabra(String pPalabra){
