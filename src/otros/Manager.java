@@ -69,26 +69,28 @@ public class Manager {
 		Word top3 = null;
 		Word top4 = null;
 		Word top5 = pContenido.remove(0);
+		int repeticiones;
 		while(pContenido.size() != 0) {
-			if(top5.getRepetitions() < pContenido.get(0).getRepetitions()) {
+			repeticiones = pContenido.get(0).getRepetitions();
+			if(top5.getRepetitions() < repeticiones) {
 				top1 = top2;
 				top2 = top3;
 				top3 = top4;
 				top4 = top5;
 				top5 = pContenido.remove(0);
-			}else if(top4.getRepetitions() < pContenido.get(0).getRepetitions() || top4 == null) {
+			}else if(top4.getRepetitions() < repeticiones || top4 == null) {
 				top1 = top2;
 				top2 = top3;
 				top3 = top4;
 				top4 = pContenido.remove(0);
-			}else if(top3.getRepetitions() < pContenido.get(0).getRepetitions() || top3 == null) {
+			}else if(top3.getRepetitions() < repeticiones || top3 == null) {
 				top1 = top2;
 				top2 = top3;
 				top3 = pContenido.remove(0);
-			}else if(top2.getRepetitions() < pContenido.get(0).getRepetitions() || top2 == null) {
+			}else if(top2.getRepetitions() < repeticiones || top2 == null) {
 				top1 = top2;
 				top2 = pContenido.remove(0);
-			}else if(top1.getRepetitions() < pContenido.get(0).getRepetitions() || top1 == null) {
+			}else if(top1.getRepetitions() < repeticiones || top1 == null) {
 				top1 = pContenido.remove(0);
 			}
 		}
