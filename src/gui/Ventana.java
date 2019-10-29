@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 import otros.IConstants;
 
-public class Ventana extends JFrame implements IConstants{
+public class  Ventana extends JFrame implements IConstants{
 	private JPanel buttonsPanel;
 	private JPanel textPanel;
 	private JTextField textbar;

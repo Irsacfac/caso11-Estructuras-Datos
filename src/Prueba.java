@@ -16,10 +16,11 @@ public class Prueba {
 		final String url = "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-liberia-guanacaste/";
 		final String url2 = "https://www.uber.com/es-CR/blog/lugares-para-visitar-en-san-carlos/";
 
-		String matches = JSONURLHandler.getInstance().getParagraphs(url);
-		URL objetoURL = new URL(url);
-		objetoURL.enqueueInnerURLs();
-		//System.out.println(objetoURL.content);
+		ArrayList<String> matches = JSONURLHandler.getInstance().splitIntoWords(JSONURLHandler.getInstance().getText(url));
+		System.out.println("hola mundo !!");
+
+
+
 
 
 

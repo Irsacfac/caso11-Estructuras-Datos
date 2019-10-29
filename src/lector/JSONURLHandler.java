@@ -3,13 +3,16 @@ package lector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import otros.IConstants;
+import otros.Word;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.*;
 
 public class JSONURLHandler implements IHtmlTags, IConstants {
 
+    /*
+    Singleton Pattern
+     */
     private static JSONURLHandler mInstance;
     private String JSONFile;
 
@@ -27,12 +30,68 @@ public class JSONURLHandler implements IHtmlTags, IConstants {
     }
 
 
+    /*
+    Public Methods
+     */
+
+    public ArrayList<Word> getWordsWithoutRepetitions(String pURL){
+        String text = getText(pURL);
+        ArrayList<String> words = splitIntoWords(text);
+        ArrayList<Word> wordsWithoutRepetitions = new ArrayList<>();
+        for (String word : words){
+            if (exists(word, wordsWithoutRepetitions)) getWord(word, wordsWithoutRepetitions).incrementRepetitions();
+            else wordsWithoutRepetitions.add(new Word(word));
+        }
+        return wordsWithoutRepetitions;
+    }
+    
+
+    /*
+    Private Methods
+     */
+
+
+    private boolean exists(String pWord, ArrayList<Word> words){
+        boolean exists = false;
+        for (Word word : words){
+            if (word.getWord().equals(pWord)) {
+                exists = true;
+                break;
+            }
+        }
+        return exists;
+    }
+
+    private Word getWord(String pWord, ArrayList<Word> words){
+        for (Word word : words){
+            if (word.getWord().equals(pWord)) {
+                return word;
+            }
+        }
+        return null;
+    }
+
+
+    private ArrayList<String> splitIntoWords(String pText){
+        ArrayList<String> allMatches = new ArrayList<>();
+        Matcher matcher = Pattern.compile(WORD_REGEX).matcher(pText);
+        while (matcher.find()) {
+
+            if (matcher.group().length() >= 4){
+                System.out.println(matcher.group());
+                allMatches.add(matcher.group().toLowerCase());
+            }
+
+        }
+        return allMatches;
+    }
+
     private String getOuterHtml(String pURL){
 
         return JSoup.getInstance().parseURL(pURL);
     }
 
-    public String getParagraphs(String pURL){
+    private String getText(String pURL){
         String allMatches = "";
         Matcher matcher = Pattern.compile(PARAGRAPH_REGEX).matcher(getOuterHtml(pURL));
         while (matcher.find()) {
@@ -41,7 +100,9 @@ public class JSONURLHandler implements IHtmlTags, IConstants {
         return allMatches;
     }
 
-    public int getProfundidadOrAnchura(String pURL, String pAnchuraOrProfundidad){
+
+
+    private int getProfundidadOrAnchura(String pURL, String pAnchuraOrProfundidad){
         JSONObject URLs = JSONReader.getInstance().parseJson(JSONFile);
         JSONArray URLArray = (JSONArray)URLs.get("URLs");
         for (int index = 0; index < URLArray.size(); index++){
@@ -57,4 +118,5 @@ public class JSONURLHandler implements IHtmlTags, IConstants {
         }
         return -1;
     }
+
 }
