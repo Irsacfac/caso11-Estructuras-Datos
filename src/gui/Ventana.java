@@ -68,6 +68,7 @@ public class  Ventana extends JFrame implements IConstants{
 		botonRango.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				botonRangoActionPerformed();
 			}
 		});
@@ -80,6 +81,18 @@ public class  Ventana extends JFrame implements IConstants{
 				botonURLActionPerformed();
 			}
 		});
+
+	}
+
+	private void botonURLActionPerformed() {
+
+	}
+
+	private void botonRangoActionPerformed() {
+
+	}
+
+	private void botonPalabraActionPerformed() {
 
 	}
 
