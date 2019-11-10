@@ -22,7 +22,10 @@ public class Manager {
 		arbolTop = new ArbolBmas<>(7);
 		urlHandler = JSONURLHandler.getInstance();
 		URLs = urlHandler.getAllURLs();
+
 		this.llenarArboles();
+
+
 	}
 
 	private ArrayList<String> interseccion(ArrayList<ArrayList<String>> pArrayLists){
@@ -73,7 +76,13 @@ public class Manager {
 	}
 	
 	public ArrayList<String> buscarPalabra(String pPalabra){
-		return arbolPalabra.buscar(pPalabra).getElemento();
+		try {
+			return arbolPalabra.buscar(pPalabra).getElemento();
+		}
+		catch (NullPointerException ex){
+			return new ArrayList<>();
+		}
+
 	}
 
 	public ArrayList<String> buscarPalabras(String[] pPalabras){
@@ -92,20 +101,22 @@ public class Manager {
 			actualURL = URLs.get(actual);
 			actualList = urlHandler.getWordsWithoutRepetitions(actualURL);
 			llenarTop(actualURL, actualList);
+			actualList = urlHandler.getWordsWithoutRepetitions(actualURL);
 			for(int pos = 0;pos < actualList.size();pos++) {
 				actualWord = actualList.get(pos);
 				llenarRango(actualWord.getRepetitions(), actualURL);
 				llenarPalabra(actualWord.getWord(), actualURL);
 			}
 		}
+
 	}
 	
 	private void llenarRango(int pRango, String pURL) {
-		LinkBM<ArrayList<String>> arrayURLs = arbolPalabra.buscar(pRango);
+		LinkBM<ArrayList<String>> arrayURLs = arbolRango.buscar(pRango);
 		if(arrayURLs == null) {
 			ArrayList<String> array = new ArrayList<String>(); 
 			array.add(pURL);
-			arbolPalabra.insert(array, pRango);;
+			arbolRango.insert(array, pRango);;
 		}else {
 			arrayURLs.getElemento().add(pURL);
 		}
@@ -114,7 +125,7 @@ public class Manager {
 	private void llenarPalabra(String pPalabra, String pURL) {
 		LinkBM<ArrayList<String>> arrayURLs = arbolPalabra.buscar(pPalabra);
 		if(arrayURLs == null) {
-			ArrayList<String> array = new ArrayList<String>(); 
+			ArrayList<String> array = new ArrayList<String>();
 			array.add(pURL);
 			arbolPalabra.insert(array, pPalabra);;
 		}else {
@@ -130,6 +141,7 @@ public class Manager {
 		Word top5 = pContenido.remove(0);
 		int repeticiones;
 		while(pContenido.size() != 0) {
+
 			repeticiones = pContenido.get(0).getRepetitions();
 			if(top5.getRepetitions() < repeticiones) {
 				top1 = top2;
@@ -149,9 +161,12 @@ public class Manager {
 			}else if(top2 == null || top2.getRepetitions() < repeticiones) {
 				top1 = top2;
 				top2 = pContenido.remove(0);
+				System.out.println(pContenido.size());
 			}else if(top1 == null || top1.getRepetitions() < repeticiones) {
 				top1 = pContenido.remove(0);
 			}
+			else pContenido.remove(0);
+
 		}
 		ArrayList<String> top = new ArrayList<>();
 		top.add(top5.getWord());

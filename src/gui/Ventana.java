@@ -118,10 +118,13 @@ public class  Ventana extends JFrame implements IConstants{
 		} else {
 			 matches = miManager.buscarPalabras(words);
 		}
-		System.out.println("Matches: ");
-		for (String url : matches){
-			System.out.println(url);
-		}
+		if (matches.size()>0){
+			System.out.println("Matches: ");
+			for (String url : matches){
+				System.out.println(url);
+			}
+		} else System.out.println("No matches, sorry!");
+
 
 	}
 

@@ -106,16 +106,19 @@ public class ArbolBmas<T>{
 	
 	public LinkBM<T> buscar(Comparable pLlave) {
 		if(raiz == null) {
+
 			return null;
 		}
 		HojaBM<T> nodo = buscadorAuxiliar(pLlave, raiz, false);
 		LinkBM<T> temp = ((HojaBM)nodo).encontrar(pLlave);
 		if(temp == null) {
+
 			return null;
 		}
 		if(temp.getLlave().compareTo(pLlave) == 0) {
 			return temp;
 		}
+
 		return null;
 	}
 	

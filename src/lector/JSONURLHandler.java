@@ -89,7 +89,6 @@ public class JSONURLHandler implements IHtmlTags, IConstants {
         while (matcher.find()) {
 
             if (matcher.group().length() >= 4){
-                System.out.println(matcher.group());
                 allMatches.add(matcher.group().toLowerCase());
             }
 
