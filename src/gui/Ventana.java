@@ -103,10 +103,11 @@ public class  Ventana extends JFrame implements IConstants{
 		int[] rangeNumbers = stringToInt(numberStrings);
 		ArrayList<String> matches = miManager.buscarRango(rangeNumbers[0], rangeNumbers[1]);
 		System.out.println("Matches: ");
-		for (String url : matches){
-			System.out.println(url);
-		}
-
+		if(matches != null) {
+			for (String url : matches){
+				System.out.println(url);
+			}
+		}else System.out.println("Out of range");
 	}
 
 	private void botonPalabraActionPerformed() {

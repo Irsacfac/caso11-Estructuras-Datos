@@ -50,8 +50,9 @@ public class Manager {
 
 	
 	public ArrayList<String> buscarURL(String pURL) {
-		if (arbolTop.buscar(pURL).equals(null)){
+		if (arbolTop.buscar(pURL)==null){
 			ArrayList<String> fail = new ArrayList<>();
+			System.out.println("No match, sorry!");
 			return fail;
 		}
 		return arbolTop.buscar(pURL).getElemento();
@@ -87,8 +88,12 @@ public class Manager {
 
 	public ArrayList<String> buscarPalabras(String[] pPalabras){
 		ArrayList<String> matches = new ArrayList<>();
+		LinkBM<ArrayList<String>> tempMatch;
 		for (String palabra : pPalabras){
-			matches.addAll(arbolPalabra.buscar(palabra).getElemento());
+			tempMatch = arbolPalabra.buscar(palabra);
+			if(tempMatch != null) {
+				matches.addAll(tempMatch.getElemento());
+			}
 		}
 		return matches;
 	}
