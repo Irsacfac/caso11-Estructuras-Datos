@@ -135,8 +135,12 @@ public class  Ventana extends JFrame implements IConstants{
 
 	private int[] stringToInt(String[] pNumbers){
 		int[] numbers = new int[2];
-		numbers[0] = Integer.parseInt(pNumbers[0]);
-		numbers[1] = Integer.parseInt(pNumbers[1]);
+		try {
+			numbers[0] = Integer.parseInt(pNumbers[0]);
+			numbers[1] = Integer.parseInt(pNumbers[1]);
+		}catch (java.lang.NumberFormatException e) {
+			return numbers;
+		}
 		return numbers;
 	}
 }

@@ -69,7 +69,7 @@ public class Manager {
 			}
 		}
 		ArrayList<String> arrayURL = new ArrayList<String>();
-		while((resultado != null)&&(resultado.getLlave().compareTo(pMax) < 0)) {
+		while((resultado != null)&&(resultado.getLlave().compareTo(pMax) <= 0)) {
 			arrayURL.addAll(resultado.getElemento());
 			resultado = resultado.getNext();
 		}
